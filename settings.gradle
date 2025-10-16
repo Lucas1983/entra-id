@@ -1,0 +1,3 @@
+rootProject.name = 'entra-id'
+
+include('downstream-api', 'middle-tier-api', 'web-app')
