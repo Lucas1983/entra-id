@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  downstream-api:
+    build:
+      context: ./downstream-api
+    image: entra-id/downstream-api:local
+    environment:
+      - AZURE_TENANT_ID=${AZURE_TENANT_ID}
+      - AZURE_CLIENT_ID=${DOWNSTREAM_API_AZURE_CLIENT_ID}
+      - AZURE_CLIENT_SECRET=${DOWNSTREAM_API_AZURE_CLIENT_SECRET}
+    ports:
+      - "8082:8080"
+
+  middle-tier-api:
+    build:
+      context: ./middle-tier-api
+    image: entra-id/middle-tier-api:local
+    environment:
+      - AZURE_TENANT_ID=${AZURE_TENANT_ID}
+      - AZURE_CLIENT_ID=${MIDDLE_TIER_API_AZURE_CLIENT_ID}
+      - AZURE_CLIENT_SECRET=${MIDDLE_TIER_API_AZURE_CLIENT_SECRET}
+    ports:
+      - "8081:8080"
+    depends_on:
+      - downstream-api
+
+  web-app:
+    build:
+      context: ./web-app
+    image: entra-id/web-app:local
+    environment:
+      - AZURE_TENANT_ID=${AZURE_TENANT_ID}
+      - AZURE_CLIENT_ID=${WEB_APP_AZURE_CLIENT_ID}
+      - AZURE_CLIENT_SECRET=${WEB_APP_AZURE_CLIENT_SECRET}
+    ports:
+      - "8080:8080"
+    depends_on:
+      - middle-tier-api
