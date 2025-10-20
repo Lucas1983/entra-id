@@ -10,6 +10,13 @@ spring:
         credential:
           client-id: ${AZURE_CLIENT_ID}
           client-secret: ${AZURE_CLIENT_SECRET}
+        user-name-attribute: preferred_username
+        authorization-clients:
+          middle-tier-api:
+            scopes:
+             - ${MIDDLE_TIER_READ_SCOPE}
+             - ${MIDDLE_TIER_WRITE_SCOPE}
+
 logging:
   level:
     org.springframework.security.oauth2.client: DEBUG
