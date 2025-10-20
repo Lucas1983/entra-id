@@ -1,0 +1,62 @@
+version: "3.9"
+name: entra-id-dev
+services:
+  downstream-api:
+    image: gradle:jdk17
+    container_name: downstream-api-dev
+    working_dir: /workspace
+    command: [ "bash", "-lc", "./gradlew bootRun --continuous -x test" ]
+    volumes:
+      - ./downstream-api:/workspace        # your source code
+      - downstream-api-gradle-cache:/home/gradle/.gradle
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - AZURE_TENANT_ID=${AZURE_TENANT_ID}
+      - AZURE_CLIENT_ID=${DOWNSTREAM_API_AZURE_CLIENT_ID}
+      - AZURE_CLIENT_SECRET=${DOWNSTREAM_API_AZURE_CLIENT_SECRET}
+    ports:
+      - "8082:8080"
+    restart: unless-stopped
+
+  middle-tier-api:
+    image: gradle:jdk17
+    container_name: middle-tier-api-dev
+    working_dir: /workspace
+    command: [ "bash", "-lc", "./gradlew bootRun --continuous -x test" ]
+    volumes:
+      - ./middle-tier-api:/workspace        # your source code
+      - middle-tier-api-gradle-cache:/home/gradle/.gradle
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - AZURE_TENANT_ID=${AZURE_TENANT_ID}
+      - AZURE_CLIENT_ID=${MIDDLE_TIER_API_AZURE_CLIENT_ID}
+      - AZURE_CLIENT_SECRET=${MIDDLE_TIER_API_AZURE_CLIENT_SECRET}
+      - DOWNSTREAM_READ_SCOPE=${DOWNSTREAM_API_AZURE_APP_ID_URI}/Downstream.Read
+      - DOWNSTREAM_WRITE_SCOPE=${DOWNSTREAM_API_AZURE_APP_ID_URI}/Downstream.Write
+    ports:
+      - "8081:8080"
+    restart: unless-stopped
+
+  web-app:
+    image: gradle:jdk17
+    container_name: web-app-dev
+    working_dir: /workspace
+    command: [ "bash", "-lc", "./gradlew bootRun --continuous -x test" ]
+    volumes:
+      - ./web-app:/workspace        # your source code
+      - web-app-gradle-cache:/home/gradle/.gradle
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - AZURE_TENANT_ID=${AZURE_TENANT_ID}
+      - AZURE_CLIENT_ID=${WEB_APP_AZURE_CLIENT_ID}
+      - AZURE_CLIENT_SECRET=${WEB_APP_AZURE_CLIENT_SECRET}
+      - MIDDLE_TIER_READ_SCOPE=${MIDDLE_TIER_API_AZURE_APP_ID_URI}/MiddleTier.Read
+      - MIDDLE_TIER_WRITE_SCOPE=${MIDDLE_TIER_API_AZURE_APP_ID_URI}/MiddleTier.Write
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+volumes:
+  web-app-gradle-cache:
+  middle-tier-api-gradle-cache:
+  downstream-api-gradle-cache:
