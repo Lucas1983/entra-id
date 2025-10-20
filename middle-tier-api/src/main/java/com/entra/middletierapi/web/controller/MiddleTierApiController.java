@@ -3,6 +3,7 @@ package com.entra.middletierapi.web.controller;
 import com.entra.middletierapi.business.MiddleTierApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
@@ -17,7 +18,7 @@ public class MiddleTierApiController {
   private final MiddleTierApiService service;
 
   @GetMapping("/devops")
-  //  @PreAuthorize("hasAuthority('APPROLE_DEVOPS_ROLE')")
+  @PreAuthorize("hasAuthority('APPROLE_MIDDLE_TIER_API.DEVOPS_ROLE')")
   //  @PreAuthorize("hasRole('DEVOPS_ROLE')")
   public String devops(
       Authentication authentication,
@@ -27,7 +28,7 @@ public class MiddleTierApiController {
   }
 
   @GetMapping("/business")
-  //  @PreAuthorize("hasAuthority('APPROLE_BUSINESS_ROLE')")
+  @PreAuthorize("hasAuthority('APPROLE_MIDDLE_TIER_API.BUSINESS_ROLE')")
   //  @PreAuthorize("hasRole('BUSINESS_ROLE')")
   public String business(
       Authentication authentication,
