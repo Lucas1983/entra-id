@@ -28,9 +28,9 @@ public class WebAppController {
   //  @PreAuthorize("hasRole('DEVOPS_ROLE')")
   public String devops(
       Authentication authentication,
-      @RegisteredOAuth2AuthorizedClient("middle-tier-api") OAuth2AuthorizedClient oboClient) {
+      @RegisteredOAuth2AuthorizedClient("middle-tier-api") OAuth2AuthorizedClient client) {
     log.info("WEB-APP : DEVOPS endpoint accessed : {}", authentication);
-    return webAppService.requestMiddleTierApi("devops", oboClient.getAccessToken().getTokenValue());
+    return webAppService.requestMiddleTierApi("devops", client);
     //    return "WEB-APP : DEVOPS endpoint accessed : " + authentication.getName();
   }
 
@@ -39,10 +39,9 @@ public class WebAppController {
   //  @PreAuthorize("hasRole('BUSINESS_ROLE')")
   public String business(
       Authentication authentication,
-      @RegisteredOAuth2AuthorizedClient("middle-tier-api") OAuth2AuthorizedClient oboClient) {
+      @RegisteredOAuth2AuthorizedClient("middle-tier-api") OAuth2AuthorizedClient client) {
     log.info("WEB-APP : BUSINESS endpoint accessed : {}", authentication);
-    return webAppService.requestMiddleTierApi(
-        "business", oboClient.getAccessToken().getTokenValue());
+    return webAppService.requestMiddleTierApi("business", client);
     //    return "WEB-APP : BUSINESS endpoint accessed : " + authentication.getName();
   }
 }
