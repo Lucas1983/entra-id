@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class WebAppController {
 
-  private final WebAppService webAppService;
+  private final WebAppService service;
 
   @GetMapping("/")
   public String login() {
@@ -30,8 +30,7 @@ public class WebAppController {
       Authentication authentication,
       @RegisteredOAuth2AuthorizedClient("middle-tier-api") OAuth2AuthorizedClient client) {
     log.info("WEB-APP : DEVOPS endpoint accessed : {}", authentication);
-    return webAppService.requestMiddleTierApi("devops", client);
-    //    return "WEB-APP : DEVOPS endpoint accessed : " + authentication.getName();
+    return service.requestMiddleTierApi("devops", client);
   }
 
   @GetMapping("/business")
@@ -41,7 +40,6 @@ public class WebAppController {
       Authentication authentication,
       @RegisteredOAuth2AuthorizedClient("middle-tier-api") OAuth2AuthorizedClient client) {
     log.info("WEB-APP : BUSINESS endpoint accessed : {}", authentication);
-    return webAppService.requestMiddleTierApi("business", client);
-    //    return "WEB-APP : BUSINESS endpoint accessed : " + authentication.getName();
+    return service.requestMiddleTierApi("business", client);
   }
 }

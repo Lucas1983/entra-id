@@ -14,7 +14,6 @@ public class DownstreamApiController {
   //  @PreAuthorize("hasRole('DEVOPS_ROLE')")
   public String devops(Authentication authentication) {
     log.info("DOWNSTREAM-API : DEVOPS endpoint accessed : {}", authentication);
-    //    return webAppService.requestMiddleTierApi("devops");
     return "DOWNSTREAM-API : DEVOPS Endpoint Accessed!";
   }
 
@@ -23,7 +22,6 @@ public class DownstreamApiController {
   //  @PreAuthorize("hasRole('BUSINESS_ROLE')")
   public String business(Authentication authentication) {
     log.info("DOWNSTREAM-API : BUSINESS endpoint accessed : {}", authentication);
-    //    return webAppService.requestMiddleTierApi("business");
     return "DOWNSTREAM-API : BUSINESS Endpoint Accessed!";
   }
 }
