@@ -27,7 +27,7 @@ public class WebAppController {
   @PreAuthorize("hasAuthority('APPROLE_WEB_APP.DEVOPS_ROLE')")
   public String devopsObo(
       Authentication authentication,
-      @RegisteredOAuth2AuthorizedClient("middle-tier-api") OAuth2AuthorizedClient client) {
+      @RegisteredOAuth2AuthorizedClient("middle-tier-api-obo") OAuth2AuthorizedClient client) {
     log.info("WEB-APP OBO : DEVOPS endpoint accessed : {}", authentication);
     return service.requestMiddleTierApi("obo/devops", client);
   }
@@ -36,25 +36,25 @@ public class WebAppController {
   @PreAuthorize("hasAuthority('APPROLE_WEB_APP.BUSINESS_ROLE')")
   public String businessObo(
       Authentication authentication,
-      @RegisteredOAuth2AuthorizedClient("middle-tier-api") OAuth2AuthorizedClient client) {
+      @RegisteredOAuth2AuthorizedClient("middle-tier-api-obo") OAuth2AuthorizedClient client) {
     log.info("WEB-APP OBO : BUSINESS endpoint accessed : {}", authentication);
     return service.requestMiddleTierApi("obo/business", client);
   }
 
   @GetMapping("/cc/devops")
-  @PreAuthorize("hasAuthority('APPROLE_WEB_APP.DEVOPS_ROLE')")
+//  @PreAuthorize("hasAuthority('APPROLE_WEB_APP.DEVOPS_ROLE')")
   public String devopsCc(
       Authentication authentication,
-      @RegisteredOAuth2AuthorizedClient("middle-tier-api") OAuth2AuthorizedClient client) {
+      @RegisteredOAuth2AuthorizedClient("middle-tier-api-cc") OAuth2AuthorizedClient client) {
     log.info("WEB-APP CC : DEVOPS endpoint accessed : {}", authentication);
     return service.requestMiddleTierApi("cc/devops", client);
   }
 
   @GetMapping("/cc/business")
-  @PreAuthorize("hasAuthority('APPROLE_WEB_APP.BUSINESS_ROLE')")
+//  @PreAuthorize("hasAuthority('APPROLE_WEB_APP.BUSINESS_ROLE')")
   public String businessCc(
       Authentication authentication,
-      @RegisteredOAuth2AuthorizedClient("middle-tier-api") OAuth2AuthorizedClient client) {
+      @RegisteredOAuth2AuthorizedClient("middle-tier-api-cc") OAuth2AuthorizedClient client) {
     log.info("WEB-APP CC : BUSINESS endpoint accessed : {}", authentication);
     return service.requestMiddleTierApi("cc/business", client);
   }

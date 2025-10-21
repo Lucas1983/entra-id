@@ -13,10 +13,15 @@ spring:
         user-name-attribute: preferred_username
         app-id-uri: ${WEB_APP_AZURE_APP_ID_URI}
         authorization-clients:
-          middle-tier-api:
+          middle-tier-api-obo:
+            authorization-grant-type: authorization-code
             scopes:
               - ${MIDDLE_TIER_API_AZURE_APP_ID_URI}/MiddleTier.Read
               - ${MIDDLE_TIER_API_AZURE_APP_ID_URI}/MiddleTier.Write
+          middle-tier-api-cc:
+            authorization-grant-type: client-credentials
+            scopes:
+              - ${MIDDLE_TIER_API_AZURE_APP_ID_URI}/.default
 
 logging:
   level:
