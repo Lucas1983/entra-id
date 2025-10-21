@@ -17,21 +17,39 @@ public class MiddleTierApiController {
 
   private final MiddleTierApiService service;
 
-  @GetMapping("/devops")
+  @GetMapping("/obo/devops")
   @PreAuthorize("hasAuthority('APPROLE_MIDDLE_TIER_API.DEVOPS_ROLE')")
-  public String devops(
+  public String devopsObo(
       Authentication authentication,
-      @RegisteredOAuth2AuthorizedClient("downstream-api") OAuth2AuthorizedClient client) {
-    log.info("MIDDLE-TIER-API : DEVOPS endpoint accessed : {}", authentication);
+      @RegisteredOAuth2AuthorizedClient("downstream-api-obo") OAuth2AuthorizedClient client) {
+    log.info("MIDDLE-TIER-API OBO : DEVOPS endpoint accessed : {}", authentication);
     return service.requestDownstreamApi("devops", client);
   }
 
-  @GetMapping("/business")
+  @GetMapping("/obo/business")
   @PreAuthorize("hasAuthority('APPROLE_MIDDLE_TIER_API.BUSINESS_ROLE')")
-  public String business(
+  public String businessObo(
       Authentication authentication,
-      @RegisteredOAuth2AuthorizedClient("downstream-api") OAuth2AuthorizedClient client) {
-    log.info("MIDDLE-TIER-API : BUSINESS endpoint accessed : {}", authentication);
+      @RegisteredOAuth2AuthorizedClient("downstream-api-obo") OAuth2AuthorizedClient client) {
+    log.info("MIDDLE-TIER-API OBO : BUSINESS endpoint accessed : {}", authentication);
+    return service.requestDownstreamApi("business", client);
+  }
+
+  @GetMapping("/cc/devops")
+  @PreAuthorize("hasAuthority('APPROLE_MIDDLE_TIER_API.DEVOPS_ROLE')")
+  public String devopsCc(
+      Authentication authentication,
+      @RegisteredOAuth2AuthorizedClient("downstream-api-cc") OAuth2AuthorizedClient client) {
+    log.info("MIDDLE-TIER-API CC : DEVOPS endpoint accessed : {}", authentication);
+    return service.requestDownstreamApi("devops", client);
+  }
+
+  @GetMapping("/cc/business")
+  @PreAuthorize("hasAuthority('APPROLE_MIDDLE_TIER_API.BUSINESS_ROLE')")
+  public String businessCc(
+      Authentication authentication,
+      @RegisteredOAuth2AuthorizedClient("downstream-api-cc") OAuth2AuthorizedClient client) {
+    log.info("MIDDLE-TIER-API CC : BUSINESS endpoint accessed : {}", authentication);
     return service.requestDownstreamApi("business", client);
   }
 }

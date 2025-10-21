@@ -12,11 +12,15 @@ spring:
           client-secret: ${MIDDLE_TIER_API_AZURE_CLIENT_SECRET}
         app-id-uri: ${MIDDLE_TIER_API_AZURE_APP_ID_URI}
         authorization-clients:
-          downstream-api:
+          downstream-api-obo:
             authorization-grant-type: on_behalf_of
             scopes:
               - ${DOWNSTREAM_API_AZURE_APP_ID_URI}/Downstream.Read
               - ${DOWNSTREAM_API_AZURE_APP_ID_URI}/Downstream.Write
+          downstream-api-cc:
+            authorization-grant-type: client_credentials
+            scopes:
+              - ${DOWNSTREAM_API_AZURE_APP_ID_URI}/.default
 logging:
   level:
     org.springframework.security.oauth2.client: DEBUG

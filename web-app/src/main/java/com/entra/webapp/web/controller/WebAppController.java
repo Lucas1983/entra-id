@@ -23,21 +23,39 @@ public class WebAppController {
     return "WEB-APP : Login Successful!";
   }
 
-  @GetMapping("/devops")
+  @GetMapping("/obo/devops")
   @PreAuthorize("hasAuthority('APPROLE_WEB_APP.DEVOPS_ROLE')")
-  public String devops(
+  public String devopsObo(
       Authentication authentication,
       @RegisteredOAuth2AuthorizedClient("middle-tier-api") OAuth2AuthorizedClient client) {
-    log.info("WEB-APP : DEVOPS endpoint accessed : {}", authentication);
-    return service.requestMiddleTierApi("devops", client);
+    log.info("WEB-APP OBO : DEVOPS endpoint accessed : {}", authentication);
+    return service.requestMiddleTierApi("obo/devops", client);
   }
 
-  @GetMapping("/business")
+  @GetMapping("/obo/business")
   @PreAuthorize("hasAuthority('APPROLE_WEB_APP.BUSINESS_ROLE')")
-  public String business(
+  public String businessObo(
       Authentication authentication,
       @RegisteredOAuth2AuthorizedClient("middle-tier-api") OAuth2AuthorizedClient client) {
-    log.info("WEB-APP : BUSINESS endpoint accessed : {}", authentication);
-    return service.requestMiddleTierApi("business", client);
+    log.info("WEB-APP OBO : BUSINESS endpoint accessed : {}", authentication);
+    return service.requestMiddleTierApi("obo/business", client);
+  }
+
+  @GetMapping("/cc/devops")
+  @PreAuthorize("hasAuthority('APPROLE_WEB_APP.DEVOPS_ROLE')")
+  public String devopsCc(
+      Authentication authentication,
+      @RegisteredOAuth2AuthorizedClient("middle-tier-api") OAuth2AuthorizedClient client) {
+    log.info("WEB-APP CC : DEVOPS endpoint accessed : {}", authentication);
+    return service.requestMiddleTierApi("cc/devops", client);
+  }
+
+  @GetMapping("/cc/business")
+  @PreAuthorize("hasAuthority('APPROLE_WEB_APP.BUSINESS_ROLE')")
+  public String businessCc(
+      Authentication authentication,
+      @RegisteredOAuth2AuthorizedClient("middle-tier-api") OAuth2AuthorizedClient client) {
+    log.info("WEB-APP CC : BUSINESS endpoint accessed : {}", authentication);
+    return service.requestMiddleTierApi("cc/business", client);
   }
 }
