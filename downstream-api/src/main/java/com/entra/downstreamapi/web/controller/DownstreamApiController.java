@@ -12,7 +12,6 @@ public class DownstreamApiController {
 
   @GetMapping("/devops")
   @PreAuthorize("hasAuthority('APPROLE_DOWNSTREAM_API.DEVOPS_ROLE')")
-  //  @PreAuthorize("hasRole('DEVOPS_ROLE')")
   public String devops(Authentication authentication) {
     log.info("DOWNSTREAM-API : DEVOPS endpoint accessed : {}", authentication);
     return "DOWNSTREAM-API : DEVOPS Endpoint Accessed!";
@@ -20,7 +19,6 @@ public class DownstreamApiController {
 
   @GetMapping("/business")
   @PreAuthorize("hasAuthority('APPROLE_DOWNSTREAM_API.BUSINESS_ROLE')")
-  //  @PreAuthorize("hasRole('BUSINESS_ROLE')")
   public String business(Authentication authentication) {
     log.info("DOWNSTREAM-API : BUSINESS endpoint accessed : {}", authentication);
     return "DOWNSTREAM-API : BUSINESS Endpoint Accessed!";

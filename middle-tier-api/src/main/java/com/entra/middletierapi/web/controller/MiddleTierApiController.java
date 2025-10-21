@@ -19,7 +19,6 @@ public class MiddleTierApiController {
 
   @GetMapping("/devops")
   @PreAuthorize("hasAuthority('APPROLE_MIDDLE_TIER_API.DEVOPS_ROLE')")
-  //  @PreAuthorize("hasRole('DEVOPS_ROLE')")
   public String devops(
       Authentication authentication,
       @RegisteredOAuth2AuthorizedClient("downstream-api") OAuth2AuthorizedClient client) {
@@ -29,7 +28,6 @@ public class MiddleTierApiController {
 
   @GetMapping("/business")
   @PreAuthorize("hasAuthority('APPROLE_MIDDLE_TIER_API.BUSINESS_ROLE')")
-  //  @PreAuthorize("hasRole('BUSINESS_ROLE')")
   public String business(
       Authentication authentication,
       @RegisteredOAuth2AuthorizedClient("downstream-api") OAuth2AuthorizedClient client) {

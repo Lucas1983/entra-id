@@ -25,7 +25,6 @@ public class WebAppController {
 
   @GetMapping("/devops")
   @PreAuthorize("hasAuthority('APPROLE_WEB_APP.DEVOPS_ROLE')")
-  //  @PreAuthorize("hasRole('DEVOPS_ROLE')")
   public String devops(
       Authentication authentication,
       @RegisteredOAuth2AuthorizedClient("middle-tier-api") OAuth2AuthorizedClient client) {
@@ -35,7 +34,6 @@ public class WebAppController {
 
   @GetMapping("/business")
   @PreAuthorize("hasAuthority('APPROLE_WEB_APP.BUSINESS_ROLE')")
-  //  @PreAuthorize("hasRole('BUSINESS_ROLE')")
   public String business(
       Authentication authentication,
       @RegisteredOAuth2AuthorizedClient("middle-tier-api") OAuth2AuthorizedClient client) {
